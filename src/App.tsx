@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 font-spoqa">
       <div className="max-w-md m-auto min-h-screen bg-white">
         <Outlet />
       </div>

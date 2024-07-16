@@ -1,10 +1,21 @@
-export default {
+// tailwind.config.js
+
+module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        spoqa: ['"Spoqa Han Sans"', 'sans-serif'],
+        Cafe24Shiningstar: ['Cafe24Shiningstar'],
+      },
+      spacing: {
+        312: '19.5rem',
+        232: '14.5rem',
+        70: '4.375rem',
+      },
       colors: {
         background: {
-          default: '#dfdfeo',
+          default: '#dfdfe0', // 수정된 부분: 'eo' 대신 'e0'
           light: '#f7f7f8',
         },
         interactive: {
@@ -26,7 +37,7 @@ export default {
         },
         primary: {
           lightest: '#0066ff',
-          lighter: '#005eeeb',
+          lighter: '#005eeb',
           light: '#0054d1',
         },
       },

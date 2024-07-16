@@ -1,5 +1,17 @@
 import { HttpResponse, http } from 'msw';
 import { BASEURL } from '../constants/constants';
+import image1 from '../assets/testImg/images.jpg';
+import image2 from '../assets/testImg/images (1).jpg';
+import image3 from '../assets/testImg/images (2).jpg';
+import image4 from '../assets/testImg/images (3).jpg';
+import image5 from '../assets/testImg/images (4).jpg';
+import image6 from '../assets/testImg/images (5).jpg';
+import image7 from '../assets/testImg/images (6).jpg';
+import image8 from '../assets/testImg/images (7).jpg';
+import image9 from '../assets/testImg/images (8).jpg';
+import image10 from '../assets/testImg/images (9).jpg';
+import image11 from '../assets/testImg/다운로드 (1).jpg';
+import image12 from '../assets/testImg/다운로드.jpg';
 
 type EmailFindRequestBody = {
   name: string;
@@ -21,6 +33,105 @@ type EmailVerifyRequestBody = {
   email: string;
   code: string;
 };
+
+const postList = [
+  {
+    postId: 1,
+    thumbnail: image1,
+    SeasonTag: '봄',
+    WeatherTag: ['흐림', '눈'],
+    TempTag: ['쌀쌀해요', '추워'],
+    likeByUser: true,
+  },
+  {
+    postId: 2,
+    thumbnail: image2,
+    SeasonTag: '여름',
+    WeatherTag: ['맑음', '비'],
+    TempTag: ['더워요', '후덥지근해요'],
+    likeByUser: false,
+  },
+  {
+    postId: 3,
+    thumbnail: image3,
+    SeasonTag: '겨울',
+    WeatherTag: ['눈', '바람'],
+    TempTag: ['매우 추워요', '한파'],
+    likeByUser: false,
+  },
+  {
+    postId: 4,
+    thumbnail: image4,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 5,
+    thumbnail: image5,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 6,
+    thumbnail: image6,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 7,
+    thumbnail: image7,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 8,
+    thumbnail: image8,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 9,
+    thumbnail: image9,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 10,
+    thumbnail: image10,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 11,
+    thumbnail: image11,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+  {
+    postId: 12,
+    thumbnail: image12,
+    SeasonTag: '봄',
+    WeatherTag: ['맑음', '바람'],
+    TempTag: ['포근해요', '따뜻해요'],
+    likeByUser: true,
+  },
+];
 
 export const handlers = [
   // 회원가입
@@ -92,7 +203,7 @@ export const handlers = [
       });
     } else {
       return new HttpResponse(null, {
-        status: 400,
+        status: 500,
         statusText: '일치하는 사용자가 없습니다.',
       });
     }
@@ -144,5 +255,16 @@ export const handlers = [
         statusText: `login_faild`,
       });
     }
+  }),
+  // post
+  http.get(`${BASEURL}/api/v1/posts`, async ({ request }) => {
+    const url = new URL(request.url);
+    const page = parseInt(url.searchParams.get('page') || '1', 10);
+    const size = parseInt(url.searchParams.get('size') || '10', 10);
+    const start = (page - 1) * size;
+    const end = start + size;
+    const paginatedPosts = postList.slice(start, end);
+
+    return HttpResponse.json(paginatedPosts);
   }),
 ];
